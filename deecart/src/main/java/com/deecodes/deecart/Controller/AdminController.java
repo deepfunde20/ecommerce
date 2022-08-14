@@ -9,7 +9,12 @@ import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,6 +22,7 @@ import java.util.Optional;
 @RequestMapping("/admin")
 public class AdminController {
 
+    public static String uploadDir = System.getProperty("user.dir") + "/src/main/resources/static/productImages";
     @Autowired
     ProductService productService;
 
@@ -40,12 +46,24 @@ public class AdminController {
     }
 
     @PostMapping("/product/add")
-    private String addProduct(@ModelAttribute("product") Product product){
+    private String addProduct(@ModelAttribute("product") Product product, @RequestParam("productImage")MultipartFile file,
+                              @RequestParam("imgName")String imgName) throws IOException {
        Product tempProduct = new Product();
        tempProduct.setId(product.getId());
        tempProduct.setCategory(categoryService.getCategoryById(product.getCategory().getId()));
        tempProduct.setPrice(product.getPrice());
        tempProduct.setName(product.getName());
+       tempProduct.setDescription(product.getDescription());
+       String imageUUID;
+       if(!file.isEmpty()){
+           imageUUID =file.getOriginalFilename();
+           Path fileNameAndPath = Paths.get(uploadDir, imageUUID);
+           System.out.println("sseee here "+fileNameAndPath.toAbsolutePath());
+           Files.write(fileNameAndPath, file.getBytes());
+       }else{
+           imageUUID = imgName;
+       }
+       tempProduct.setImageName(imageUUID);
          productService.addProduct(tempProduct);
         return "redirect:/admin/products";
     }

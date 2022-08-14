@@ -18,5 +18,7 @@ public class Product {
     @JoinColumn(name = "category_id",referencedColumnName = "category_id")
     Category category;
     String price;
+    private String description;
+    private String imageName;
 
 }
