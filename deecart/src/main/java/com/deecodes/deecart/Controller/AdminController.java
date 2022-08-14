@@ -83,6 +83,7 @@ public class AdminController {
     tempProduct.setName(product.getName());
     tempProduct.setCategory(product.getCategory());
     tempProduct.setPrice(product.getPrice());
+    tempProduct.setDescription(product.getDescription());
     model.addAttribute("product", tempProduct);
     model.addAttribute("categories",categoryService.getCategoryList());
         return "addProduct";
