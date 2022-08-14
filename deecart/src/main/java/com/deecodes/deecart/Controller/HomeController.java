@@ -38,4 +38,11 @@ public class HomeController {
         return "shop";
     }
 
+    @GetMapping("/shop/viewProduct/{id}")
+    public String viewProduct(@PathVariable Long id, Model model){
+        model.addAttribute("product", productService.getProductById(id));
+        return "viewProduct";
+
+    }
+
 }
