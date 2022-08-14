@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -22,7 +23,7 @@ import java.util.Optional;
 @RequestMapping("/admin")
 public class AdminController {
 
-    public static String uploadDir = System.getProperty("user.dir") + "/src/main/resources/static/productImages";
+    public static String uploadDir = "F:\\SpringBoot\\DeeCartGit\\ecommerce\\DeeCart\\deecart\\src\\main\\resources\\static\\productImages";
     @Autowired
     ProductService productService;
 
@@ -58,7 +59,6 @@ public class AdminController {
        if(!file.isEmpty()){
            imageUUID =file.getOriginalFilename();
            Path fileNameAndPath = Paths.get(uploadDir, imageUUID);
-           System.out.println("sseee here "+fileNameAndPath.toAbsolutePath());
            Files.write(fileNameAndPath, file.getBytes());
        }else{
            imageUUID = imgName;
@@ -84,6 +84,7 @@ public class AdminController {
     tempProduct.setCategory(product.getCategory());
     tempProduct.setPrice(product.getPrice());
     tempProduct.setDescription(product.getDescription());
+    tempProduct.setImageName(product.getImageName());
     model.addAttribute("product", tempProduct);
     model.addAttribute("categories",categoryService.getCategoryList());
         return "addProduct";
