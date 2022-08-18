@@ -17,7 +17,7 @@ public class Product {
     @ManyToOne(fetch= FetchType.LAZY)
     @JoinColumn(name = "category_id",referencedColumnName = "category_id")
     Category category;
-    String price;
+    private double price;
     private String description;
     private String imageName;
 
