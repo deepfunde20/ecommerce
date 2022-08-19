@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+
+    <title>Document</title>
+</head>
+<body>
+
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light" >
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+            <img th:src="@{/images/logo.png}"  src="../static/images/logo.png" width="auto" height="40" class="d-inline-block align-top" alt=""/>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto"></ul>
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link" th:href="@{/}" href="#">home</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" th:href="@{/shop}" href="#">shop</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" sec:authorize="isAnonymous()" th:href="@{/login}" href="#">login</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/logout}" href="#">logout</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" th:href="@{/cart}" href="#">cart</a>
+                </li>
+                <li class="nav-item active">
+                    <span class="nav-link" th:text="${cartCount}">0</span>
+                </li>
+            </ul>
+
+        </div>
+    </div>
+</nav>
+
+<form form th:action="@{/user/address/add/{id}(id=${userId})}" method="post" th:object="${address}" class="card container mt-4">
+    <h1 class="mt-2 mb-4 bg-dark text-white text-center rounded" >Enter Address</h1>
+    <div class="form-group">
+        <input type="hidden" name="userId" th:field="*{userId}">
+        <input type="hidden" name="id" th:field="*{id}">
+        <label for="formGroupExampleInput">Street Name</label>
+        <input type="text" th:field="*{streetName}" class="form-control" id="formGroupExampleInput" placeholder="Street">
+    </div>
+    <div class="form-group">
+        <label for="formGroupExampleInput2">City</label>
+        <input type="text" th:field="*{city}" class="form-control" id="formGroupExampleInput2" placeholder="City">
+    </div>
+    <div class="form-group">
+        <label for="formGroupExampleInput2">Postal Code</label>
+        <input type="text" th:field="*{postalCode}" class="form-control" id="formGroupExampleInput2" placeholder="Postal Code">
+    </div>
+
+    <input class="btn btn-primary" type="submit" value="Submit">
+</form>
+
+</body>
+</html>
+</html>

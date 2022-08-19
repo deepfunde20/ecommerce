@@ -41,7 +41,6 @@ public class AdminController {
     public String showAddProduct(Model model){
         model.addAttribute("product",new Product());
         model.addAttribute("categories",categoryService.getCategoryList());
-
         return "addProduct";
 
     }
