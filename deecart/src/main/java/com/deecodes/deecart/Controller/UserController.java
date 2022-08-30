@@ -1,10 +1,13 @@
 package com.deecodes.deecart.Controller;
 
 import com.deecodes.deecart.entity.Address;
+import com.deecodes.deecart.entity.MyUser;
 import com.deecodes.deecart.entity.Product;
 import com.deecodes.deecart.service.AddressService;
+import com.deecodes.deecart.service.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.Banner;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +20,12 @@ public class UserController {
 
     @Autowired
     AddressService addressService;
+
+    @Autowired
+    CustomUserDetailsService customUserDetailsService;
+
+    @Autowired
+    PasswordEncoder passwordEncoder;
 
     @GetMapping("/address/{id}")
     public String getAddressList(Model model, @PathVariable long id){
@@ -68,7 +77,20 @@ public class UserController {
         model.addAttribute("userId",address.getUserId());
         return "addAddressPage";
     }
-
-
+    @PostMapping("/add")
+    public String addUser(@ModelAttribute("myUser")MyUser myUser){
+       MyUser tempUser = new MyUser();
+       tempUser.setId(myUser.getId());
+       tempUser.setUsername(myUser.getUsername());
+       tempUser.setPassword(passwordEncoder.encode(myUser.getPassword()));
+       tempUser.setRole("USER");
+        customUserDetailsService.addNewUser(tempUser);
+        return "redirect:/login";
+    }
+    @GetMapping("/add")
+    public String getAddUser(Model model){
+        model.addAttribute("myUser", new MyUser());
+        return "signUp";
+    }
 
 }
