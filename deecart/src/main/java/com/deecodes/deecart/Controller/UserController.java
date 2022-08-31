@@ -7,6 +7,7 @@ import com.deecodes.deecart.service.AddressService;
 import com.deecodes.deecart.service.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.Banner;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,6 +17,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/user")
+@SessionAttributes("userId")
 public class UserController {
 
     @Autowired
@@ -27,24 +29,28 @@ public class UserController {
     @Autowired
     PasswordEncoder passwordEncoder;
 
-    @GetMapping("/address/{id}")
-    public String getAddressList(Model model, @PathVariable long id){
+
+    @GetMapping("/address")
+    public String getAddressList(Authentication authentication,Model model){
+        long id = customUserDetailsService.findByUserName(authentication.getName()).getId();
         model.addAttribute("addressList",addressService.getByUserId(id));
         model.addAttribute("userId",id);
         return "/addressPage";
     }
 
-    @GetMapping("/address/add/{id}")
-    public String addAddress(Model model, @PathVariable long id){
-
+    @GetMapping("/address/add")
+    public String addAddress(Authentication authentication, Model model){
+       long id = customUserDetailsService.findByUserName(authentication.getName()).getId();
         model.addAttribute("address", new Address());
         model.addAttribute("userId",id);
+        System.out.println("This is id of user "+ id);
         return "addAddressPage";
     }
 
-    @PostMapping("/address/add/{id}")
-    public String addAddress(@ModelAttribute("address") Address address, @PathVariable long id){
-
+    @PostMapping("/address/add")
+    public String addAddress(Authentication authentication, @ModelAttribute("address") Address address){
+        long id = customUserDetailsService.findByUserName(authentication.getName()).getId();
+        System.out.println("This is id of user "+ id);
         Address tempAddress = new Address();
         tempAddress.setId(address.getId());
         tempAddress.setStreetName(address.getStreetName());
@@ -52,15 +58,14 @@ public class UserController {
         tempAddress.setCity(address.getCity());
         tempAddress.setPostalCode(address.getPostalCode());
          addressService.addAddress(tempAddress);
-        return "redirect:/user/address/"+id;
+        return "redirect:/user/address/";
     }
-
     @GetMapping("/address/delete/{id}")
     private String removeProduct(@PathVariable Integer id){
        Address add =  addressService.getByAddressId(id);
         long userId= add.getUserId();
         addressService.deleteAddressById(id);
-        return "redirect:/user/address/"+userId;
+        return "redirect:/user/address/";
     }
 
     @GetMapping("/address/update/{id}")
@@ -78,10 +83,14 @@ public class UserController {
         return "addAddressPage";
     }
     @PostMapping("/add")
-    public String addUser(@ModelAttribute("myUser")MyUser myUser){
+    public String addUser(@ModelAttribute("myUser")MyUser myUser) throws Exception {
        MyUser tempUser = new MyUser();
        tempUser.setId(myUser.getId());
        tempUser.setUsername(myUser.getUsername());
+      MyUser existingUser =  customUserDetailsService.findByUserName( myUser.getUsername());
+      if(existingUser !=null){
+          throw new Exception("User already exist");
+      }
        tempUser.setPassword(passwordEncoder.encode(myUser.getPassword()));
        tempUser.setRole("USER");
         customUserDetailsService.addNewUser(tempUser);

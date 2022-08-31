@@ -51,10 +51,10 @@
     </div>
 </nav>
 
-<form form th:action="@{/myUser/address/add/{id}(id=${userId})}" method="post" th:object="${address}" class="card container mt-4">
+<form form th:action="@{/user/address/add}" method="post" th:object="${address}" class="card container mt-4">
     <h1 class="mt-2 mb-4 bg-dark text-white text-center rounded" >Enter Address</h1>
     <div class="form-group">
-        <input type="hidden" name="userId" th:field="*{userId}">
+<!--        <input type="hidden" name="userId" th:field="*{userId}">-->
         <input type="hidden" name="id" th:field="*{id}">
         <label for="formGroupExampleInput">Street Name</label>
         <input type="text" th:field="*{streetName}" class="form-control" id="formGroupExampleInput" placeholder="Street">

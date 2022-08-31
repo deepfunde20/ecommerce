@@ -10,10 +10,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
+@SessionAttributes("userId")
 public class HomeController {
 
 
@@ -28,6 +31,7 @@ public class HomeController {
         model.addAttribute("productList",productService.getProductList());
         model.addAttribute("categories", categoryService.getCategoryList());
         model.addAttribute("cartCount", GlobalData.cart.size());
+
         return "shop";
     }
 
@@ -45,7 +49,4 @@ public class HomeController {
         model.addAttribute("cartCount", GlobalData.cart.size());
         return "viewProduct";
     }
-
-
-
 }

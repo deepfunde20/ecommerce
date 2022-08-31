@@ -61,10 +61,10 @@
             <p  th:text="${address.city}">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
             <p  th:text="${address.postalCode}">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
         </blockquote>
-        <a href="" th:href="@{/myUser/address/delete/{id}(id=${address.id})}" class="btn btn-danger">Delete</a>
-        <a href="" th:href="@{/myUser/address/update/{id}(id=${address.id})}" class="btn btn-success">Update</a>
+        <a href="" th:href="@{/user/address/delete/{id}(id=${address.id})}" class="btn btn-danger">Delete</a>
+        <a href="" th:href="@{/user/address/update/{id}(id=${address.id})}" class="btn btn-success">Update</a>
     </div>
-    <a th:href="@{/myUser/address/add/{id}(id=${userId})}" type="button" class="btn btn-primary btn-lg mt-4 mb-2" >Add Address</a>
+    <a th:href="@{/user/address/add}" type="button" class="btn btn-primary btn-lg mt-4 mb-2" >Add Address</a>
 </div>
 
 

@@ -28,4 +28,8 @@ public class CustomUserDetailsService implements UserDetailsService {
     public MyUser addNewUser(MyUser myUser){
       return  userRepository.save(myUser);
     }
+
+    public MyUser findByUserName(String username) {
+       return userRepository.findByUsername(username);
+    }
 }
