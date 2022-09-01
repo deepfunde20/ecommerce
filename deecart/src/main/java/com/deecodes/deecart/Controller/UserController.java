@@ -17,7 +17,6 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/user")
-@SessionAttributes("userId")
 public class UserController {
 
     @Autowired
@@ -82,7 +81,7 @@ public class UserController {
         model.addAttribute("userId",address.getUserId());
         return "addAddressPage";
     }
-    @PostMapping("/add")
+    @PostMapping("/signup")
     public String addUser(@ModelAttribute("myUser")MyUser myUser) throws Exception {
        MyUser tempUser = new MyUser();
        tempUser.setId(myUser.getId());
@@ -96,7 +95,7 @@ public class UserController {
         customUserDetailsService.addNewUser(tempUser);
         return "redirect:/login";
     }
-    @GetMapping("/add")
+    @GetMapping("/signup")
     public String getAddUser(Model model){
         model.addAttribute("myUser", new MyUser());
         return "signUp";

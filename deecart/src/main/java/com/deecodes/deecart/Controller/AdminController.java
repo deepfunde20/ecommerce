@@ -132,4 +132,9 @@ public class AdminController {
         model.addAttribute("category", tempCategory);
         return "addCategory";
     }
+
+    @GetMapping("")
+   public String adminHome(){
+        return "Admin";
+    }
 }

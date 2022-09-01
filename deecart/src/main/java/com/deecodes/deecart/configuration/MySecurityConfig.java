@@ -30,7 +30,7 @@ public class MySecurityConfig  {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/shop","/h2-console/**","/user/add").permitAll()
+                .antMatchers("/shop","/h2-console/**","/user/signup").permitAll()
                 .antMatchers("/admin/**").hasAuthority("ADMIN")
                 .antMatchers("/user/**").hasAuthority("USER")
                 .anyRequest()
