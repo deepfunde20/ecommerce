@@ -21,4 +21,5 @@ public class Cart {
     @ManyToMany(fetch= FetchType.LAZY)
     private List<Product> product;
     private int quantity;
+    private long userId;
 }

@@ -30,4 +30,13 @@ public class CartService {
     public List<Cart> getCart(){
        return cartRepository.findAll();
     }
+
+    public Cart findCartByUserId(long id) {
+
+    return  cartRepository.findCartByUserId(id);
+    }
+
+    public Cart saveCart(Cart cart){
+       return cartRepository.save(cart);
+    }
 }
