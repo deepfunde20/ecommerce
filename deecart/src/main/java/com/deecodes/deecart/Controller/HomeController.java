@@ -10,6 +10,8 @@ import com.deecodes.deecart.service.CustomUserDetailsService;
 import com.deecodes.deecart.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -40,15 +42,16 @@ public class HomeController {
     public String getProduct(Model model, Authentication authentication){
         model.addAttribute("productList",productService.getProductList());
         model.addAttribute("categories", categoryService.getCategoryList());
-        long useId = customUserDetailsService.findByUserName(authentication.getName()).getId();
-        Cart cart = cartService.findCartByUserId(useId);
-        if(cart ==null){
-             cart = new Cart();
-            model.addAttribute("cartCount", 0);
-        }else {
+
+        try {
+            Long useId = customUserDetailsService.findByUserName(authentication.getName()).getId();
+            Cart cart = cartService.findCartByUserId(useId);
             model.addAttribute("cartCount", cart.getProduct().size());
         }
-
+        catch(NullPointerException e) {
+            System.out.println("User is not logged in");
+            model.addAttribute("cartCount", 0);
+        }
         return "shop";
     }
 
