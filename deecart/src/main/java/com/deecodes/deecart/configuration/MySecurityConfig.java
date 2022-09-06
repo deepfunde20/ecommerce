@@ -32,7 +32,7 @@ public class MySecurityConfig  {
                 .authorizeRequests()
                 .antMatchers("/shop","/h2-console/**","/user/signup").permitAll()
                 .antMatchers("/admin/**").hasAuthority("ADMIN")
-                .antMatchers("/user/**").hasAuthority("USER")
+                .antMatchers("/user/**","/api/**").hasAuthority("USER")
                 .anyRequest()
                 .authenticated()
                 .and()

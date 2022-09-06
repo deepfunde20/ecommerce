@@ -86,6 +86,7 @@ public class UserController {
        MyUser tempUser = new MyUser();
        tempUser.setId(myUser.getId());
        tempUser.setUsername(myUser.getUsername());
+       tempUser.setEmail(myUser.getEmail());
       MyUser existingUser =  customUserDetailsService.findByUserName( myUser.getUsername());
       if(existingUser !=null){
           throw new Exception("User already exist");

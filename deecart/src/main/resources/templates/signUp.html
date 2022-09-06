@@ -44,12 +44,12 @@
     <div class="col-sm">
     <form th:action="@{/user/signup}" method="post" th:object="${myUser}" enctype="multipart/form-data" >
         <div class="form-row mb-4" >
-<!--            <input type="hidden" name="id" th:field="*{id}">-->
-            <div class="col mb-4 mt-4" >
-                <input type="text"th:field="*{id}" class="form-control" placeholder="id" name="id">
-            </div>
+            <input type="hidden" name="id" th:field="*{id}">
             <div class="col mb-4 mt-4" >
                 <input type="text"th:field="*{username}" class="form-control" placeholder="UserName" name="username">
+            </div>
+            <div class="col mb-4 mt-4" >
+                <input type="email"th:field="*{email}" class="form-control" placeholder="email" name="email">
             </div>
             <div class="col">
                 <input type="password" th:field="*{password}" class="form-control" placeholder="password" name="password">
