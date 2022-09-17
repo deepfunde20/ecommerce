@@ -102,4 +102,9 @@ public class UserController {
         return "signUp";
     }
 
+    @GetMapping("/login")
+    public String login(){
+        return "login";
+    }
+
 }

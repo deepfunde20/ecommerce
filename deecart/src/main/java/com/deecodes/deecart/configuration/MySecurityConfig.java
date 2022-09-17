@@ -30,13 +30,14 @@ public class MySecurityConfig  {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/shop","/h2-console/**","/user/signup").permitAll()
+                .antMatchers("/shop","/h2-console/**","/user/signup","/css/**","/images/**","/user/login").permitAll()
                 .antMatchers("/admin/**").hasAuthority("ADMIN")
-                .antMatchers("/user/**","/api/**").hasAuthority("USER")
+                .antMatchers("/user/**","/api/**","/payment/**","/rest/**").hasAuthority("USER")
                 .anyRequest()
                 .authenticated()
                 .and()
                 .formLogin()
+                .loginPage("/user/login")
                 .defaultSuccessUrl("/shop", true);
         http.headers().frameOptions().sameOrigin();
         return http.build();

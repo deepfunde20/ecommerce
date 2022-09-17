@@ -2,55 +2,47 @@
 <html xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Signup</title>
+    <title>Login</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" th:href="@{../css/global.css}">
 </head>
-<body>
 
-    <section class ="container-fluid bg">
-        <section class = "row justify-content-center">
+<body>
+    <section class="container-fluid bg">
+        <section class="row justify-content-center">
             <section class="col-md-9">
-                <div>
-                <form  class="form-container"  th:action="@{/user/signup}" method="post" th:object="${myUser}" enctype="multipart/form-data" >
+                <form class="form-container" th:action="@{/user/login}" method="post" enctype="multipart/form-data">
                     <div class="form-group">
-                        <label >User Name</label>
-                        <input type="text"th:field="*{username}" class="form-control" placeholder="UserName" name="username">
-                    </div>
-                    <div class="form-group">
-                        <label>Email</label>
-                        <input type="email"th:field="*{email}" class="form-control" placeholder="email" name="email">
+                        <label>User Name</label>
+                        <input type="text" class="form-control" id="username" placeholder="UserName" name="username">
                     </div>
                     <div class="form-group">
                         <label class="form-check-label">Password </label>
-                        <input type="password" th:field="*{password}" class="form-control" placeholder="password" name="password">
-                       
+                        <input type="password" id="password" class="form-control" placeholder="password" name="password">
                     </div>
-                    <button type="submit" class="btn btn-primary btn-block">Sign-Up</button>     
-
+                    <button type="submit" class="btn btn-primary btn-block">Login</button>
                 </form>
-
-             
-            </div>
-               
+    
             </section>
-            
         </section>
-
+   
         <div class="container">
             <div class="row justify-content-center">
-              <div class="col-sm">
-                <a class="btn btn-success btn-md mt-3  btn-block rounded-pill" th:href="@{/user/login}" href="#">Login</a>
-              </div>
-              <div class="col-sm">
-                
-              </div>
-              <div class="col-sm">
-               
-              </div>
+                <div class="col-sm">
+                    <a class="btn btn-success btn-md mt-3  btn-block rounded-pill" th:href="@{/user/signup}"
+                        href="#">Signup</a>
+                </div>
+                <div class="col-sm">
+    
+                </div>
+                <div class="col-sm">
+    
+                </div>
             </div>
-          </div>
+        </div> 
     </section>
+
+  
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
         integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
         crossorigin="anonymous"></script>

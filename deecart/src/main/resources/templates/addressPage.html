@@ -28,9 +28,6 @@
             <ul class="navbar-nav mr-auto"></ul>
             <ul class="navbar-nav">
                 <li class="nav-item active">
-                    <a class="nav-link" th:href="@{/}" href="#">home</a>
-                </li>
-                <li class="nav-item active">
                     <a class="nav-link" th:href="@{/shop}" href="#">shop</a>
                 </li>
                 <li class="nav-item active">
@@ -65,7 +62,6 @@
         <a href="" th:href="@{/user/address/update/{id}(id=${address.id})}" class="btn btn-success">Update</a>
     </div>
     <a th:href="@{/user/address/add}" type="button" class="btn btn-primary btn-lg mt-4 mb-2" >Add Address</a>
-    <a th:href="@{/api/createCustomer}" type="button" class="btn btn-primary btn-lg mt-4 mb-2" >Payment</a>
 </div>
 
 
