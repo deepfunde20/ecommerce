@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
+import java.util.List;
+
 @Service
 public class MyOrderService {
 
@@ -19,6 +21,11 @@ public class MyOrderService {
     public MyOrder findByMyOrderId(int id){
 
        return myOrderRepository.findById(id).get();
+    }
+
+    public List<MyOrder>  findByUserID(long id){
+
+        return myOrderRepository.findByUserId(id);
     }
 
 }

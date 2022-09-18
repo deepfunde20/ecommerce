@@ -62,7 +62,6 @@ public class UserController {
     @GetMapping("/address/delete/{id}")
     private String removeProduct(@PathVariable Integer id){
        Address add =  addressService.getByAddressId(id);
-        long userId= add.getUserId();
         addressService.deleteAddressById(id);
         return "redirect:/user/address/";
     }

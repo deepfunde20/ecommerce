@@ -50,39 +50,33 @@
                 </div>
               </div>
           </div>
-          <div class="col-sm">          
+          <div class="col-sm">   
+            <button type="button" onclick="paymentStart()" class="btn btn-danger" id="test">Test</button>
           </div>
         </div>
       </div>
 
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
 <script>
+var orderdata, options, rzp1 = null;
 
-    
-let data = this.getData();
-
-function getData(){
-    fetch("http://localhost:8080/rest").then((response)=>{
+const xyz =  fetch("http://localhost:8080/rest").then((response)=>{
     return response.json();
 }).then((data)=>{
+    orderdata = data.razerOrderId;
     console.log("Order Id is : ",  data.razerOrderId);
-  return  data.razerOrderId;
-   
-})
-.catch();
-}
- 
-  
 
+    orderdata=data.razerOrderId;
 
-var options = {
+    options = {
     "key": "rzp_test_Hy6zVKGsjwD4is", // Enter the Key ID generated from the Dashboard
     "amount": "8000", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
     "currency": "INR",
     "name": " Dee Corp",
     "description": "Test Transaction",
     "image": "/images/payimage.JPG",
-    "order_id": "", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+     "order_id": orderdata, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
     "callback_url": "https://eneqd3r9zrjok.x.pipedream.net/",
    
     "handler": function (response){
@@ -101,18 +95,22 @@ var options = {
     "theme": {
         "color": "#FF4500"
     }
-};
+}
+rzp1 = new Razorpay(options);
 
+  return  data.razerOrderId;
+   
+})
+.catch();
 
-var rzp1 = new Razorpay(options);
+//var rzp1 = new Razorpay(options);
 document.getElementById('rzp-button1').onclick = function(e){
+
+    console.log("cHECK IF ORDER ID IS PASSING : ",  orderdata);
+
     rzp1.open();
     e.preventDefault();
 }
-
-
-
-
 
 </script>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

@@ -19,4 +19,6 @@ public class MyOrder {
     private int amount;
     private String currency;
     private String razerOrderId;
+    private Long userId;
+
 }
