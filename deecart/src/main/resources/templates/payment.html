@@ -1,9 +1,11 @@
-<html lang="en">
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Payment</title>
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
@@ -24,7 +26,8 @@
             <ul class="navbar-nav mr-auto"></ul>
             <ul class="navbar-nav">
                 <li class="nav-item active">
-                    <a class="nav-link"  href="/shop">shop</a>
+                    <a class="nav-link" id="shop" href="/shop">shop</a>
+                    <a type="hidden" class="nav-link" id="success" href="/payment/success"></a>
                 </li>               
             </ul>
 
@@ -51,7 +54,6 @@
               </div>
           </div>
           <div class="col-sm">   
-            <button type="button" onclick="paymentStart()" class="btn btn-danger" id="test">Test</button>
           </div>
         </div>
       </div>
@@ -77,12 +79,15 @@ const xyz =  fetch("http://localhost:8080/rest").then((response)=>{
     "description": "Test Transaction",
     "image": "/images/payimage.JPG",
      "order_id": orderdata, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
-    "callback_url": "https://eneqd3r9zrjok.x.pipedream.net/",
+    "callback_url": "http://localhost:8080/payment/success",
    
     "handler": function (response){
-    alert(response.razorpay_payment_id);
-    alert(response.razorpay_order_id);
-     alert(response.razorpay_signature)}
+    // alert(response.razorpay_payment_id);
+    // alert(response.razorpay_order_id);
+    //  alert(response.razorpay_signature)
+            document.getElementById("success").click();
+    
+    }
      ,
     "prefill": {
         "name": "Deep Test",

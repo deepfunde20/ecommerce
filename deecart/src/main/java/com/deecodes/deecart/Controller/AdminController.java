@@ -23,7 +23,7 @@ import java.util.Optional;
 @RequestMapping("/admin")
 public class AdminController {
 
-    public static String uploadDir = "F:\\SpringBoot\\DeeCartGit\\ecommerce\\DeeCart\\deecart\\src\\main\\resources\\static\\productImages";
+    public static String uploadDir =  Path.of("").toAbsolutePath().toString()+"\\deecart\\src\\main\\resources\\static\\productImages";
     @Autowired
     ProductService productService;
 
@@ -41,7 +41,12 @@ public class AdminController {
     public String showAddProduct(Model model){
         model.addAttribute("product",new Product());
         model.addAttribute("categories",categoryService.getCategoryList());
+
+        System.out.println(System.getProperty("user.dir"));
+
         return "addProduct";
+
+
 
     }
 
@@ -57,6 +62,7 @@ public class AdminController {
        String imageUUID;
        if(!file.isEmpty()){
            imageUUID =file.getOriginalFilename();
+           System.out.println("This is the target "+uploadDir);
            Path fileNameAndPath = Paths.get(uploadDir, imageUUID);
            Files.write(fileNameAndPath, file.getBytes());
        }else{

@@ -12,11 +12,13 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 
 @Configuration
 @EnableWebSecurity
-public class MySecurityConfig  {
+public class MySecurityConfig implements WebMvcConfigurer {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -30,9 +32,9 @@ public class MySecurityConfig  {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/shop","/h2-console/**","/user/signup","/css/**","/images/**","/user/login").permitAll()
+                .antMatchers("/shop","/h2-console/**","/user/signup","/css/**","/images/**","/productImages/**","/user/login").permitAll()
                 .antMatchers("/admin/**").hasAuthority("ADMIN")
-                .antMatchers("/user/**","/api/**","/payment/**","/rest/**").hasAuthority("USER")
+                .antMatchers("/user/**","/payment/**","/payment/create_order","/rest/**").hasAuthority("USER")
                 .anyRequest()
                 .authenticated()
                 .and()
@@ -50,6 +52,16 @@ public class MySecurityConfig  {
         provider.setUserDetailsService(userDetailsService);
         provider.setPasswordEncoder(new BCryptPasswordEncoder());
         return provider;
+    }
+
+    public void addCorsMappings(CorsRegistry registry){
+        registry.addMapping("/**")
+                .allowedMethods("*")
+                .allowedOrigins("http://54.167.119.6:8080")
+                .allowedHeaders("*")
+                .allowCredentials(false)
+                .maxAge(-1);
+
     }
 
 

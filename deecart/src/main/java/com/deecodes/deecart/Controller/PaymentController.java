@@ -68,4 +68,9 @@ public class PaymentController {
         model.addAttribute("order", myOrderService.findByMyOrderId(33));
         return "payment";
     }
+
+    @GetMapping("/success")
+    public String success(){
+        return "success";
+    }
 }
