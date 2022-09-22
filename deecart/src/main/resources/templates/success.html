@@ -13,12 +13,11 @@
         <div class="container">
 
             <div id="light" onclick="openPopUp()"></div>
-
             <div class="popup" id="popup">
                 <img src="/images/paylogo.png">
                 <h2>Thank You</h2>
                 <p>You have Successfully puchased the product!!</p>
-                <a class="btn btn-primary btn-block" id="shop"  onclick="closePopUp()" href="/shop">OK</a>
+                <a class="btn btn-primary btn-block" id="shop"  onclick="closePopUp()" href="/cart/removeItems">OK</a>
             </div>
         </div>
 
@@ -32,6 +31,7 @@
     document.getElementById("light").click();
 
     function closePopUp(){
+
         popup.classList.remove("open-popup");
     }
 

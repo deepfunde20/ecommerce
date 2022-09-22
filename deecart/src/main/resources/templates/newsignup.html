@@ -2,12 +2,13 @@
 <html xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>New</title>
 
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link rel="stylesheet" th:href="@{../css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
@@ -19,28 +20,34 @@
             <div class="col-md-6">
                 <div class="myLeftCtn">
 
-                    <form class="myForm text-center"  th:action="@{/user/login}" method="post" >
-                        <header>Login Here</header>
+                    <form class="myForm text-center"  th:action="@{/user/signup}" method="post" th:object="${myUser}">
+                        <header>Create New Account</header>
                         <div class="form-group">
                             <i class="fas fa-user"></i>
-                            <input  class="myInput" type="text" placeholder="Username" id="username" name="username" required>
+                            <input th:field="*{username}" class="myInput" type="text" placeholder="Username" id="username" required>
+                            <div class="invalid-feedback">Please fill out this field</div>
+                        </div>
+
+                        <div class="form-group">
+                            <i class="fas fa-envelope"></i>
+                            <input  th:field="*{email}" class="myInput" type="email" placeholder="Email" id="email" required>
                             <div class="invalid-feedback">Please fill out this field</div>
                         </div>
 
                         <div class="form-group">
                             <i class="fas fa-lock"></i>
-                            <input  class="myInput" type="password" placeholder="password" id="password" name="password" required>
+                            <input th:field="*{password}" class="myInput" type="password" placeholder="password" id="password" required>
                             <div class="invalid-feedback">Please fill out this field</div>
                         </div>
 
                         <div class="form-group">
-                            <label><input id="check_1" name="check_1" type="checkbox" required><small>I read and agree to terms and conditions</small>
+                            <label><input id="check_1" name="check_1" type="checkbox" ><small>I read and agree to terms and conditions</small>
                             </input>
                             <div class="invalid-feedback">You must check the box</div>
                         </label>
                         </div>
 
-                        <input type="submit" class="butt" value="Login"></input>               
+                        <input type="submit" class="butt" value="CREATE ACCOUNT"></input>               
 
                     </form>
 
@@ -50,12 +57,10 @@
             </div>
                 <div class="col-md-6">
                     <div class="myRightCtn">
-                        <div class="box"><header>Not a User</header>
+                        <div class="box"><header>Already User</header>
                         <p>Use test cards to test domestic payments, international payments and subscriptions. Use test UPI IDs to test domestic one-time payments.</p>
-                        <!-- <input th:href="@{/user/login}" type="button" class="butt_out" value="Signup Here"/> -->
-                        <a class="butt_out"  th:href="@{/user/signup}"
-                        href="#">Signup Here</a>
-                       
+                            <a class="butt_out" th:href="@{/user/login}" href="#">Login Here</a>
+                        
                         </div>
                     </div>
 

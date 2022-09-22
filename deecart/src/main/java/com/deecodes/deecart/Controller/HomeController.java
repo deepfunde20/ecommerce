@@ -67,7 +67,6 @@ public class HomeController {
         }else {
             model.addAttribute("cartCount", cart.getProduct().size());
         }
-
         return "shop";
     }
 

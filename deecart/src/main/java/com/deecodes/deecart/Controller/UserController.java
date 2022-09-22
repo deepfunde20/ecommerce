@@ -97,12 +97,12 @@ public class UserController {
     @GetMapping("/signup")
     public String getAddUser(Model model){
         model.addAttribute("myUser", new MyUser());
-        return "signUp";
+        return "newsignup";
     }
 
     @GetMapping("/login")
     public String login(){
-        return "login";
+        return "newlogin";
     }
 
 }

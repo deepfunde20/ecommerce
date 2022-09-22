@@ -82,5 +82,16 @@ public class CartController {
         return "redirect:/cart";
     }
 
+    @GetMapping("/cart/removeItems")
+    public String  emptyCart(Authentication authentication){
+        long useId = customUserDetailsService.findByUserName(authentication.getName()).getId();
+        Cart cart = cartService.findCartByUserId(useId);
+        List<Product> tempList = cart.getProduct();
+        tempList.clear();
+        cart.setProduct(tempList);
+        cartService.saveCart(cart);
+        return "redirect:/shop";
+    }
+
 
 }
